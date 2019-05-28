@@ -5,8 +5,8 @@
 
 namespace EgeStream {
 static int textY = 5;
-EgeStreamBuf::EgeStreamBuf(size_t buf_size) :
-    buf_size_(buf_size){
+EgeStreamBuf::EgeStreamBuf(size_t buf_size, int spacing = 25) :
+    buf_size_(buf_size),spacing_(spacing){
     pbuf_ = new char[buf_size_]; 
     gbuf_ = new char[buf_size_];
 
@@ -27,17 +27,14 @@ EgeStreamBuf::~EgeStreamBuf() {
 }
 
 // flush the data to the ege
-
 int EgeStreamBuf::sync() {
-  char str[100];
-  for (int i = 0; i < pptr() - pbase(); i++) str[i] = *(pbase() + i);
-  str[pptr() - pbase()] = 0;
-  //printf(str);
+  std::string str;
+  for (int i = 0; i < pptr() - pbase(); i++) str.push_back (*(pbase() + i));
   std::istringstream f(str);
   std::string line;
   while (std::getline(f, line)) {
     outtextxy(5, textY, line.c_str());
-    textY += 25;
+    textY += spacing_;
   }
     setp(pbase(), pbase() + buf_size_);
     pbump(0);  // reset the pptr
@@ -71,8 +68,8 @@ int EgeStreamBuf::underflow() {
     return 1;
 }
 
-BasicEgeStream::BasicEgeStream(size_t buf_size):
-    std::iostream(new EgeStreamBuf(buf_size)), buf_size_(buf_size) {
+BasicEgeStream::BasicEgeStream(size_t buf_size, int spacing):
+    std::iostream(new EgeStreamBuf(buf_size)), buf_size_(buf_size),spacing_(spacing) {
 }
 
 BasicEgeStream::~BasicEgeStream() {

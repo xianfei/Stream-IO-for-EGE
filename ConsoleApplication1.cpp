@@ -1,31 +1,18 @@
-﻿// ConsoleApplication1.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
-#include <iostream>
-#include "ege_stream.h"
+﻿#include "ege_stream.h"
 #include <graphics.h>
 
 int main()
 {
-  initgraph(1280,720);
+  initgraph(960,576);
   setcolor(CYAN);
-  // 构造函数参数为流缓冲区大小
-  EgeStream::BasicEgeStream egeout(100);
-  egeout << "Hello World" << std::endl;
-  egeout << "你好呀！\n";
-  egeout << 123 << "  " << 456.78 << std::endl;
+
+  // 构造函数参数为 流缓冲区大小（设置为每行最大输出的字符数即可）、行距
+  // 原型为：
+  // BasicEgeStream(size_t buf_size = 100,int spacing = 25);
+
+  EgeStream::BasicEgeStream egeout;
+  egeout << std::string{ "Hello World" } << std::endl;
+  egeout << "你好呀！我是衔飞\n";
+  egeout << "output int:" << 123 << "    output double:" << 456.78 << std::endl;
   getch();
-
-
 }
-
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门提示: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件

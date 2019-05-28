@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-//  Version 0.1 By Xianfei (王衔飞) SSE of BUPT  2019.5
+//  Version 0.2 By Xianfei (王衔飞) SSE of BUPT  2019.5
 // 
 //  参考资料： 
 
@@ -15,7 +15,7 @@ namespace EgeStream {
 // a simple stream buf for ege output stream
 class EgeStreamBuf : public std::streambuf {
 public:
-    EgeStreamBuf(size_t buf_size);
+    EgeStreamBuf(size_t buf_size, int spacing);
     ~EgeStreamBuf();
 
     int underflow();
@@ -24,6 +24,7 @@ public:
 
 private:
     const size_t buf_size_;
+    const int spacing_;
     char* pbuf_;
     char* gbuf_;
 };
@@ -31,11 +32,12 @@ private:
 
 class BasicEgeStream : public std::iostream {
 public:
-    BasicEgeStream(size_t buf_size);
+    BasicEgeStream(size_t buf_size = 100,int spacing = 25);
     ~BasicEgeStream();
 
 private:
     const size_t buf_size_;
+    const int spacing_;
 };
 
 }  
