@@ -57,14 +57,34 @@ int EgeStreamBuf::overflow(int c) {
 
 int EgeStreamBuf::underflow() {
     // 有待加入流提取相关部分
-  /*int ret = buf_size_;
-      gets_s(eback(), buf_size_);
-    if (ret > 0) {
+  int ret = buf_size_;
+  std::string str;
+  int textX = 5;
+  do {
+    char a = getch();
+    if (a == 8) {
+      color_t c = getfillcolor();
+      setfillcolor(getbkcolor());
+      bar(textX - 10, textY + spacing_, textX, textY);
+      textX -= 10;
+      str.erase(str.end() - 1);
+      setfillcolor(c);
+      continue;
+    }
+    str.push_back(a);
+    if (a == 13)break;
+    outtextxy(textX, textY, std::string{a}.c_str());
+    textX += 10;
+    
+  } while (1);
+  textY += spacing_;
+      strcpy_s(eback(), buf_size_,str.c_str());
+    if (str.size()) {
         setg(eback(), eback(), eback() + ret);
         return traits_type::to_int_type(*gptr());
     } else {
         return traits_type::eof();
-    }*/
+    }
     return 1;
 }
 
