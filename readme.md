@@ -2,11 +2,15 @@
 
 还在测试 目前仅支持输出至绘图区
 
+
+
 注意：
 
-BUG：必须在结尾加上 std::endl 或 \n 才能正常输出
+BUG：必须在结尾加上 std::endl 或 std::flush 才能正常输出
 
 模拟cin必须在英文输入法下使用！不要使用中文输入法！
+
+
 
 使用方式：
 
@@ -18,17 +22,16 @@ BUG：必须在结尾加上 std::endl 或 \n 才能正常输出
 
 （使用范例见ConsoleApplication1.cpp）
 
-  // 构造函数参数为 流缓冲区大小（设置为每行最大输出的字符数即可）、行距
-  
-  // 原型为：
-  
-  // BasicEgeStream(size_t buf_size = 100,int spacing = 25);
+
+
 
 测试环境：VS2019 EGE19.01
 
 by Xianfei SSE of BUPT 2019.5
 
 更新日志：
+
+v0.4  加入了彩色输出(手动彩虹旗 doge)、可自行更改输入输出流的位置，更自由~
 
 v0.3  加入了模拟cin
 
