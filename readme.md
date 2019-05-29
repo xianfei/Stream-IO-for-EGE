@@ -2,7 +2,9 @@
 
 还在测试 目前仅支持输出至绘图区
 
+截图：
 
+![image](https://github.com/xianfei/Stream-IO-for-EGE/raw/master/example.png)
 
 注意：
 
