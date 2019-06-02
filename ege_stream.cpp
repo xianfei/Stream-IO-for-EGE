@@ -18,14 +18,26 @@ std::ostream& operator<<(std::ostream& os, EgeStreamStyle s)
 }
 
 int EgeStreamBuf::textY = 5;
+int EgeStreamBuf::x_ = 5;
+int EgeStreamBuf::spacing_ = 25;
 
 EgeStreamBuf::EgeStreamBuf(int x, int y,size_t buf_size, int spacing) :
-    buf_size_(buf_size),spacing_(spacing),x_(x){
+    buf_size_(buf_size){
     pbuf_ = new char[buf_size_]; 
     gbuf_ = new char[buf_size_];
-    this->textY = y;
+    this->textY = y; this->x_ = x; this->spacing_ = spacing;
     setp(pbuf_, pbuf_ + buf_size_); // set the pointers for output buf
     setg(gbuf_, gbuf_, gbuf_);      // set the pointers for input buf
+}
+
+EgeStreamBuf::EgeStreamBuf():
+buf_size_(100)
+{
+  pbuf_ = new char[buf_size_];
+  gbuf_ = new char[buf_size_];
+  //this->textY = y; this->x_ = x;
+  setp(pbuf_, pbuf_ + buf_size_); // set the pointers for output buf
+  setg(gbuf_, gbuf_, gbuf_);      // set the pointers for input buf
 }
 
 EgeStreamBuf::~EgeStreamBuf() {
@@ -38,6 +50,17 @@ EgeStreamBuf::~EgeStreamBuf() {
         delete gbuf_;
         gbuf_ = nullptr;
     }
+}
+
+void EgeStreamBuf::setXY(int x, int y)
+{
+  this->x_ = x;
+  this->textY = y;
+}
+
+void EgeStreamBuf::setSpacing(int s)
+{
+  this->spacing_ = s;
 }
 
 // flush the data to the ege
@@ -113,11 +136,25 @@ int EgeStreamBuf::underflow() {
 }
 
 BasicEgeStream::BasicEgeStream(int x, int y, int spacing,size_t buf_size):
-    std::iostream(new EgeStreamBuf(x,y,buf_size,spacing)), buf_size_(buf_size){
+    std::iostream(bufPointer=new EgeStreamBuf(x,y,buf_size,spacing)), buf_size_(buf_size){
+}
+
+BasicEgeStream::BasicEgeStream(): std::iostream(bufPointer=new EgeStreamBuf()), buf_size_(100)
+{
 }
 
 BasicEgeStream::~BasicEgeStream() {
     delete rdbuf();
+}
+
+void BasicEgeStream::setXY(int x,int y)
+{
+  bufPointer->setXY(x, y);
+}
+
+void BasicEgeStream::setSpacing(int s)
+{
+  bufPointer->setSpacing(s);
 }
 
 

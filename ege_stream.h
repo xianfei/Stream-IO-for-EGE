@@ -4,7 +4,7 @@
 #include <sstream>
 #include <graphics.h>
 
-//  Version 0.4 By Xianfei (王衔飞) SSE of BUPT  2019.5
+//  Version 0.5 By Xianfei (王衔飞) SSE of BUPT  2019.6
 // 
 //  参考资料： 
 
@@ -25,29 +25,33 @@ struct EgeStreamStyle {
   friend std::ostream& operator<<(std::ostream& os, EgeStreamStyle s);
 };
 
+
 // a simple stream buf for ege output stream
 class EgeStreamBuf : public std::streambuf {
 public:
     EgeStreamBuf(int x, int y,size_t buf_size, int spacing);
+    EgeStreamBuf();
     ~EgeStreamBuf();
-
+    void setXY(int x, int y);
+    void setSpacing(int s);
     int underflow();
     int overflow(int c);
     int sync();
 
 private:
     const size_t buf_size_;
-    int spacing_;
+    static int spacing_;
     char* pbuf_;
     char* gbuf_;
-    int x_;
+    static int x_;
     static int textY;
 };
 
 
 class BasicEgeStream : public std::iostream {
 public:
-    BasicEgeStream(int x=5,int y=5, int spacing = 25,size_t buf_size = 100);
+    BasicEgeStream(int,int, int spacing = 25,size_t buf_size = 100);
+    BasicEgeStream();
     ~BasicEgeStream();
     EgeStreamStyle red{ 0xff0000 };
     EgeStreamStyle blue{ 0x2cb6f0 };
@@ -57,8 +61,11 @@ public:
     EgeStreamStyle yellow{ 0xfde540 };
     EgeStreamStyle green{ 0x6dec4b };
     EgeStreamStyle purple{ 0xa24bec };
+    void setXY(int x,int y);
+    void setSpacing(int s);
 private:
     const size_t buf_size_;
+    EgeStreamBuf* bufPointer;
 };
 
 }  
