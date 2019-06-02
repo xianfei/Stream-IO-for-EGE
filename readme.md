@@ -33,6 +33,8 @@ by Xianfei SSE of BUPT 2019.5
 
 更新日志：
 
+v0.5  加入setXY(int x,int y)及setSpacing(int s)函数，用于设置输入输出流的位置。 注意：调用任何一个由BasicEgeStream创造的流的setXY或setSpacing函数，其他由BasicEgeStream创造的流也会改变
+
 v0.4  加入了彩色输出(手动彩虹旗 doge)、可自行更改输入输出流的位置，更自由~
 
 v0.3  加入了模拟cin
