@@ -4,7 +4,7 @@
 #include <sstream>
 #include <graphics.h>
 
-//  Version 0.5 By Xianfei (王衔飞) SSE of BUPT  2019.6
+//  Version 0.6 By Xianfei (王衔飞) SSE of BUPT  2019.6
 // 
 //  参考资料： 
 

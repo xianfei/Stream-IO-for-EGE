@@ -104,7 +104,7 @@ int EgeStreamBuf::overflow(int c) {
 
 int EgeStreamBuf::underflow() {
     // 从键盘输入数据
-  int ret = buf_size_;
+  //int ret = buf_size_;
   std::string str;
   int textX = x_;
   do {
@@ -121,13 +121,13 @@ int EgeStreamBuf::underflow() {
     str.push_back(a);
     if (a == 13)break;
     outtextxy(textX, textY, std::string{a}.c_str());
-    textX += 10;// 字间距
-    
+    textX += 10;// 字间距  
   } while (1);
+  // str.push_back('\0');
   textY += spacing_;
       strcpy_s(eback(), buf_size_,str.c_str());
     if (str.size()) {
-        setg(eback(), eback(), eback() + ret);
+        setg(eback(), eback(), eback() + str.size());
         return traits_type::to_int_type(*gptr());
     } else {
         return traits_type::eof();
