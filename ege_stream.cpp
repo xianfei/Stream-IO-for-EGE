@@ -109,6 +109,7 @@ int EgeStreamBuf::underflow() {
   int textX = x_;
   do {
     char a = getch();
+    if (a == 13)break;
     if (a == 8&&!str.empty()) {
       color_t c = getfillcolor();
       setfillcolor(getbkcolor());
@@ -123,7 +124,7 @@ int EgeStreamBuf::underflow() {
     outtextxy(textX, textY, std::string{a}.c_str());
     textX += 10;// ×Ö¼ä¾à  
   } while (1);
-  // str.push_back('\0');
+  str.push_back('\n');
   textY += spacing_;
       strcpy_s(eback(), buf_size_,str.c_str());
     if (str.size()) {
